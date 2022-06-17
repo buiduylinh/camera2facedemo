@@ -21,8 +21,8 @@ object CameraUtils {
     IMAGE
   }
 
-  private const val MAX_HEIGHT_OUTPUT_IMAGE = 1080
-  private const val MAX_WIDTH_OUTPUT_IMAGE = 1920
+  private const val MAX_HEIGHT_OUTPUT_IMAGE = 5000
+  private const val MAX_WIDTH_OUTPUT_IMAGE = 5000
 
   fun calculationSize(map: StreamConfigurationMap, calculationSize: CalculationSize): Size {
     val supportedPreviewSizes = TreeSet<Size>()
@@ -41,48 +41,51 @@ object CameraUtils {
     val aspectRatio = AspectRatio.of(16, 9)
     var preferred: Size
     val sizesWithAspectRatio = imageSizeMap.sizes(aspectRatio)
-    if (sizesWithAspectRatio != null && sizesWithAspectRatio.size > 0) {
-      preferred = sizesWithAspectRatio.last()
-      for (aSize in sizesWithAspectRatio) {
-        if (aSize.width * aSize.height <= MAX_HEIGHT_OUTPUT_IMAGE * MAX_WIDTH_OUTPUT_IMAGE) {
-          preferred = aSize
-        } else {
-          break
-        }
-      }
-    } else {
-      preferred = imageSizeMap.defaultSize()
-    }
-    if (calculationSize == IMAGE) {
-      return preferred
-    }
 
-    val surfaceLonger: Int
-    val surfaceShorter: Int
-    val surfaceWidth = preferred.width
-    val surfaceHeight = preferred.height
-    if (surfaceWidth < surfaceHeight) {
-      surfaceLonger = surfaceHeight
-      surfaceShorter = surfaceWidth
-    } else {
-      surfaceLonger = surfaceWidth
-      surfaceShorter = surfaceHeight
-    }
+    return sizesWithAspectRatio!!.last()
 
-    val preferredAspectRatio = AspectRatio.of(surfaceLonger, surfaceShorter)
-    // Pick the smallest of those big enough
-    for (size in supportedPreviewSizes) {
-      if (preferredAspectRatio.matches(size) && size.width >= surfaceLonger && size.height >= surfaceShorter
-      ) {
-        return size
-      }
-    }
-
-    // If no size is big enough, pick the largest one which matches the ratio.
-    val matchedSizes = previewSizeMap.sizes(preferredAspectRatio)
-    return if (matchedSizes != null && matchedSizes.size > 0) {
-      matchedSizes.last()
-    } else supportedPreviewSizes.last()
+//    if (sizesWithAspectRatio != null && sizesWithAspectRatio.size > 0) {
+//      preferred = sizesWithAspectRatio.last()
+//      for (aSize in sizesWithAspectRatio) {
+//        if (aSize.width * aSize.height <= MAX_HEIGHT_OUTPUT_IMAGE * MAX_WIDTH_OUTPUT_IMAGE) {
+//          preferred = aSize
+//        } else {
+//          break
+//        }
+//      }
+//    } else {
+//      preferred = imageSizeMap.defaultSize()
+//    }
+//    if (calculationSize == IMAGE) {
+//      return preferred
+//    }
+//
+//    val surfaceLonger: Int
+//    val surfaceShorter: Int
+//    val surfaceWidth = preferred.width
+//    val surfaceHeight = preferred.height
+//    if (surfaceWidth < surfaceHeight) {
+//      surfaceLonger = surfaceHeight
+//      surfaceShorter = surfaceWidth
+//    } else {
+//      surfaceLonger = surfaceWidth
+//      surfaceShorter = surfaceHeight
+//    }
+//
+//    val preferredAspectRatio = AspectRatio.of(surfaceLonger, surfaceShorter)
+//    // Pick the smallest of those big enough
+//    for (size in supportedPreviewSizes) {
+//      if (preferredAspectRatio.matches(size) && size.width >= surfaceLonger && size.height >= surfaceShorter
+//      ) {
+//        return size
+//      }
+//    }
+//
+//    // If no size is big enough, pick the largest one which matches the ratio.
+//    val matchedSizes = previewSizeMap.sizes(preferredAspectRatio)
+//    return if (matchedSizes != null && matchedSizes.size > 0) {
+//      matchedSizes.last()
+//    } else supportedPreviewSizes.last()
   }
 
   /**********************************************************************************************/

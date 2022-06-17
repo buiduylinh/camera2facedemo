@@ -7,6 +7,12 @@
     tools:ignore="HardcodedText"
     >
 
+  <FrameLayout
+      android:id="@+id/fragmentContainer"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
+
   <RelativeLayout
       android:id="@+id/buttonContainer"
       android:layout_alignParentBottom="true"
@@ -28,8 +34,7 @@
         android:layout_below="@+id/switchCamera"
         android:layout_centerHorizontal="true"
         android:background="@drawable/capture_selector"
-        android:text="Capture"
-        />
+        android:text="Capture" />
 
     <Button
         android:id="@+id/burst"
@@ -52,12 +57,7 @@
         tools:ignore="RtlHardcoded" />
   </RelativeLayout>
 
-  <FrameLayout
-      android:id="@+id/fragmentContainer"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/buttonContainer"
-      />
+
 
   <View
       android:id="@+id/overlay"

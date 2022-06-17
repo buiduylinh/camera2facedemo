@@ -204,6 +204,7 @@ class Camera2(
       if (modeFocus == ICamera.ModeFocus.AUTO_FOCUS_TO_FACES) {
         val facesArray = result[CaptureResult.STATISTICS_FACES]
         faceDetection(facesArray)
+        //todo linhbd phan này là preview, bỏ hết logic vẽ khung chữ nhật, chỉ check có hay ko có face
       }
 
       // Keep state AE/AF of sensor
@@ -379,6 +380,9 @@ class Camera2(
         override fun onCaptureCompleted(session: CameraCaptureSession,
           request: CaptureRequest,
           result: TotalCaptureResult) {
+
+          //todo linhbd lay face + lấy RECT
+          val facesArray = result[CaptureResult.STATISTICS_FACES]
 
         }
       }, null)
